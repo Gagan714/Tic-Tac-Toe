@@ -3,10 +3,27 @@ import Squares from './components/Squares';
 import { useState } from 'react';
 
 function App() {
+  function Winner(S){
+    const lines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    for(let i=0;i<lines.length;i++){
+        const[a,b,c]=lines[i];
+        if(S[a]===S[b] && S[a]===S[c] && S[b]===S[c]){
+            return S[a];
+        }
+    }
+    return null;
+}
   const [squares,SetSquares]=useState(Array(9).fill(null))
   const [xIsNext,setXIsNext]=useState(true);
+  let status;
+  const winner=Winner(squares)
+  if(winner){
+    status='Winner is : '+winner;
+  }else{
+    status='Next Player : '+ (xIsNext?'X':'O')
+  }
   function handleClick(i){
-    if(squares[i]){
+    if(squares[i] || Winner(squares)){
       return;
     }
     const nextSquare=squares.slice()
@@ -18,9 +35,11 @@ function App() {
     SetSquares(nextSquare);
     setXIsNext(!xIsNext);
   }
+
   return (
    <>
-   <div className=' h-screen w-auto flex flex-col justify-center items-center bg-black'>
+   <div className='h-screen w-auto flex flex-col justify-center items-center bg-black'>
+   <div className='text-white text-4xl'>{status}</div>
    <div className='flex justify-center items-center'>
     <Squares value={squares[0]} onSquareClick={()=>handleClick(0)}/>
     <Squares value={squares[1]} onSquareClick={()=>handleClick(1)}/>
