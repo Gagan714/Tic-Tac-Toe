@@ -2,7 +2,7 @@ import React from 'react'
 
 function Squares({value,onSquareClick}){
   return (
-    <button onClick={onSquareClick}>{value}</button>
+    <button className='h-36 w-36 bg-slate-700 border-2 text-8xl text-black' onClick={onSquareClick}>{value}</button>
   )
 }
 
