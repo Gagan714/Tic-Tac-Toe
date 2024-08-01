@@ -22,6 +22,10 @@ function App() {
   }else{
     status='Next Player : '+ (xIsNext?'X':'O')
   }
+  function clearAll(){
+    const l=Array(9).fill(null);
+    SetSquares(l);
+  }
   function handleClick(i){
     if(squares[i] || Winner(squares)){
       return;
@@ -55,6 +59,7 @@ function App() {
     <Squares value={squares[7]} onSquareClick={()=>handleClick(7)}/>
     <Squares value={squares[8]} onSquareClick={()=>handleClick(8)}/>
    </div>
+   <button onClick={clearAll} className='text-black bg-white mt-3 text-4xl w-36 rounded-3xl'>Reset</button>
    </div>
    </>
   );
